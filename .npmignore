@@ -183,8 +183,8 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,node
 
+.vscode/
 __tests__/
 *.test.*
-.vscode/
-rollup.config.js
+*.config.*
 tsconfig.*
