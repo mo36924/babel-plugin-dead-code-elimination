@@ -7,6 +7,7 @@ const options: TransformOptions = {
   configFile: false,
   plugins: [[plugin]],
 };
+
 const transform = (code: string) => transformAsync(code, options);
 
 describe("babel-plugin-dead-code-elimination", () => {
@@ -18,6 +19,7 @@ describe("babel-plugin-dead-code-elimination", () => {
         console.log(false)
       }
     `);
+
     expect(result).toMatchInlineSnapshot(`console.log(true);`);
   });
 
@@ -25,6 +27,7 @@ describe("babel-plugin-dead-code-elimination", () => {
     const result = await transform(`
       const a = true ? 1 : 2
     `);
+
     expect(result).toMatchInlineSnapshot(`const a = 1;`);
   });
 
@@ -33,12 +36,14 @@ describe("babel-plugin-dead-code-elimination", () => {
       if("test" === "test")
         a = 1
     `);
+
     expect(result).toMatchInlineSnapshot(`a = 1;`);
 
     result = await transform(`
       if("test" === "development")
         a = 1
     `);
+
     expect(result).toMatchInlineSnapshot(``);
 
     result = await transform(`
@@ -52,6 +57,7 @@ describe("babel-plugin-dead-code-elimination", () => {
         console.log("unknown")
       }
     `);
+
     expect(result).toMatchInlineSnapshot(`console.log("test");`);
 
     result = await transform(`
@@ -63,6 +69,7 @@ describe("babel-plugin-dead-code-elimination", () => {
         console.log("unknown")
       }
     `);
+
     expect(result).toMatchInlineSnapshot(`console.log("unknown");`);
 
     result = await transform(`
@@ -74,6 +81,7 @@ describe("babel-plugin-dead-code-elimination", () => {
         console.log("unknown")
       }
     `);
+
     expect(result).toMatchInlineSnapshot(`
       if (a === "production") {
         console.log("production");
