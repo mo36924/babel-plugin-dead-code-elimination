@@ -1,6 +1,6 @@
 {
   "name": "@mo36924/babel-plugin-dead-code-elimination",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "babel-plugin-dead-code-elimination",
   "keywords": [],
   "author": "",
@@ -127,6 +127,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@mo36924/build": "^1.0.5"
+    "@mo36924/build": "^1.0.6"
   }
 }
