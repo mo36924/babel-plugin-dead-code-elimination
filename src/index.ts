@@ -1,5 +1,5 @@
 import "./module";
-import type { default as _babel, PluginObj } from "@babel/core";
+import type { default as _babel, NodePath, PluginObj } from "@babel/core";
 import babelPluginMinifyDeadCodeElimination from "babel-plugin-minify-dead-code-elimination";
 
 export default (babel: typeof _babel, options: any): PluginObj => {
@@ -11,8 +11,28 @@ export default (babel: typeof _babel, options: any): PluginObj => {
     }
   }
 
+  visitor.Program.enter = (path: NodePath, state: any) => {
+    path.traverse(
+      {
+        ...visitor,
+        Program() {},
+      },
+      state,
+    );
+
+    visitor.Program.exit(path, state);
+  };
+
+  const _visitor = { ...visitor };
+
+  for (const [key, value] of Object.entries(_visitor)) {
+    if (value && typeof value === "object") {
+      _visitor[key] = { ...value };
+    }
+  }
+
   return {
     name: "dead-code-elimination",
-    visitor: visitor,
+    visitor: _visitor,
   };
 };
